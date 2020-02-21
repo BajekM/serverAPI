@@ -3,11 +3,11 @@ const router = express.Router();
 const db = require('./../db');
 const uuidv1 = require('uuid/v1');
 
-router.route('/testimonials').get((req, res) => {
+router.route('/api/testimonials').get((req, res) => {
     res.json(db.testimonials);
   });
   
-  router.route('/testimonials').post((req, res) => {
+  router.route('/api/testimonials').post((req, res) => {
     const {author, text} = req.body;
     const obj = {
       id: uuidv1(),
@@ -19,11 +19,11 @@ router.route('/testimonials').get((req, res) => {
     res.json({ message: 'OK' });
   });
   
-  router.route('/testimonials/random').get((req, res) => {
+  router.route('/api/testimonials/random').get((req, res) => {
     res.json(db.testimonials[Math.floor(Math.random() * db.testimonials.length)]);
   });
   
-  router.route('/testimonials/:id').get((req, res) => {
+  router.route('/api/testimonials/:id').get((req, res) => {
     for (let elem of db.testimonials) {
       if (elem.id == req.params.id) {
         res.json(elem);
@@ -31,7 +31,7 @@ router.route('/testimonials').get((req, res) => {
     }
   });
   
-  router.route('/testimonials/:id').put((req, res) => {
+  router.route('/api/testimonials/:id').put((req, res) => {
     const {author, text} = req.body;
     for (let elem of db.testimonials) {
       if (elem.id == req.params.id) {
@@ -43,7 +43,7 @@ router.route('/testimonials').get((req, res) => {
     res.json({ message: 'OK' });
   });
   
-  router.route('/testimonials/:id').delete((req, res) => {
+  router.route('/api/testimonials/:id').delete((req, res) => {
     for (let elem of db.testimonials) {
       if (elem.id == req.params.id) {
         db.testimonials.splice(db.testimonials.indexOf(elem), 1)
