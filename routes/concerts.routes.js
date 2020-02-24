@@ -27,30 +27,27 @@ router.route('/api/concerts').get((req, res) => {
   });
   
   router.route('/api/concerts/:id').get((req, res) => {
-    for (let elem of db.concerts) {
-      if (elem.id == req.params.id) {
-        res.json(elem);
-      }
+    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
+      res.json(elem);
     }
   });
   
   router.route('/api/concerts/:id').put((req, res) => {
-    const {author, text} = req.body;
-    for (let elem of db.concerts) {
-      if (elem.id == req.params.id) {
-        elem.author = author;
-        elem.text = text;
-        // res.json(elem);
-      }
+    const {performer, genre, price, day, image} = req.body;
+    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
+      elem.performer = performer;
+      elem.genre = genre;
+      elem.price = price;
+      elem.day = day;
+      elem.image = image;
+      // res.json(elem);
     }
     res.json({ message: 'OK' });
   });
   
   router.route('/api/concerts/:id').delete((req, res) => {
-    for (let elem of db.concerts) {
-      if (elem.id == req.params.id) {
-        db.concerts.splice(db.concerts.indexOf(elem), 1)
-      }
+    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
+      db.concerts.splice(db.concerts.indexOf(elem), 1)
     }
     // res.json(db);
     res.json({ message: 'OK' });

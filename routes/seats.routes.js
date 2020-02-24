@@ -44,30 +44,27 @@ router.route('/api/seats').get((req, res) => {
   });
   
   router.route('/api/seats/:id').get((req, res) => {
-    for (let elem of db.seats) {
-      if (elem.id == req.params.id) {
-        res.json(elem);
-      }
+    for (let elem of db.seats.filter(seat => seat.id == req.params.id)) {
+      res.json(elem);
     }
   });
   
   router.route('/api/seats/:id').put((req, res) => {
-    const {author, text} = req.body;
-    for (let elem of db.seats) {
-      if (elem.id == req.params.id) {
-        elem.author = author;
-        elem.text = text;
+    const {day, seat, client, email} = req.body;
+    for (let elem of db.seats.filter(seat => seat.id == req.params.id)) {
+      elem.day = day;
+      elem.seat = seat;
+      elem.clien = client;
+      elem.email = email
         // res.json(elem);
-      }
+      
     }
     res.json({ message: 'OK' });
   });
   
   router.route('/api/seats/:id').delete((req, res) => {
-    for (let elem of db.seats) {
-      if (elem.id == req.params.id) {
+    for (let elem of db.seats.filter(seat => seat.id == req.params.id)) {
         db.seats.splice(db.seats.indexOf(elem), 1)
-      }
     }
     // res.json(db);
     res.json({ message: 'OK' });
