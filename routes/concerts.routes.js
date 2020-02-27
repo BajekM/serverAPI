@@ -3,11 +3,11 @@ const router = express.Router();
 const db = require('./../db');
 const uuidv1 = require('uuid/v1');
 
-router.route('/api/concerts').get((req, res) => {
+router.route('/concerts').get((req, res) => {
     res.json(db.concerts);
   });
   
-  router.route('/api/concerts').post((req, res) => {
+  router.route('/concerts').post((req, res) => {
     const {performer, genre, price, day, image} = req.body;
     const obj = {
       id: uuidv1(),
@@ -18,38 +18,33 @@ router.route('/api/concerts').get((req, res) => {
       image,
     };
     db.concerts.push(obj);
-    // res.json(obj);
+    res.json(obj);
     res.json({ message: 'OK' });
   });
   
-  router.route('/api/concerts/random').get((req, res) => {
+  router.route('/concerts/random').get((req, res) => {
     res.json(db.concerts[Math.floor(Math.random() * db.concerts.length)]);
   });
   
-  router.route('/api/concerts/:id').get((req, res) => {
-    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
-      res.json(elem);
-    }
+  router.route('/concerts/:id').get((req, res) => {
+    res.json(db.concerts.find(concert => concert.id == req.params.id))
   });
   
-  router.route('/api/concerts/:id').put((req, res) => {
+  router.route('/concerts/:id').put((req, res) => {
     const {performer, genre, price, day, image} = req.body;
-    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
+    const elem = db.concerts.find(concert => concert.id == req.params.id) 
       elem.performer = performer;
       elem.genre = genre;
       elem.price = price;
       elem.day = day;
       elem.image = image;
-      // res.json(elem);
-    }
+      res.json(elem);
+    
     res.json({ message: 'OK' });
   });
   
-  router.route('/api/concerts/:id').delete((req, res) => {
-    for (let elem of db.concerts.filter(concert => concert.id == req.params.id)) {
-      db.concerts.splice(db.concerts.indexOf(elem), 1)
-    }
-    // res.json(db);
+  router.route('/concerts/:id').delete((req, res) => {
+    db.concerts.splice(db.concerts.indexOf(db.concerts.find(concert => concert.id == req.params.id)), 1)
     res.json({ message: 'OK' });
   });
 
