@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/client/NewWaveFest/build')));
 
+
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);

@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "cd client && cd NewWaveFest && yarn install && yarn build",
+    "heroku-postbuild": "cd client && cd NewWaveFest && yarn install && yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
