@@ -4,6 +4,7 @@ const db = require('./../db');
 const uuidv1 = require('uuid/v1');
 
 
+
 router.route('/seats').get((req, res) => {
     res.json(db.seats);
   });
@@ -31,6 +32,7 @@ router.route('/seats').get((req, res) => {
 
     if (condition) {
       db.seats.push(obj);
+      req.io.emit('seatsUpdated', db.seats);
         res.json(obj);
         res.json({ message: 'OK' });
     }else {
