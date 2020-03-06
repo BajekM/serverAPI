@@ -8,10 +8,11 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "4.17.1",
+    "mongoose": "5.7.1",
     "socket.io": "2.2.0",
     "uuid": "^3.4.0"
   },
   "scripts": {
-    "build": "cd client && cd NewWaveFest && yarn install && yarn build" 
+    "build": "cd client && cd NewWaveFest && yarn install && yarn build"
   }
 }
