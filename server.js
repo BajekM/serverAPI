@@ -38,7 +38,7 @@ app.use((req, res) => {
   res.status(404).send('404 not found...');
 })
 
-mongoose.connect('mongodb+srv://marcin-bajek:Aresik12@cluster0-4ieif.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://marcin-bajek:Aresik12@cluster0-4ieif.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
