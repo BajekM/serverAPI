@@ -52,7 +52,7 @@ exports.modify = async (req, res) => {
     const {performer, genre, price, day, image} = req.body;
     
     try {
-      await Concert.updateOne({ _id: req.params.id }, { $set: { peformer: performer, genre: genre, price: price, day: day, image: image  }, });
+      await Concert.updateOne({ _id: sanitize(req.params.id) }, { $set: { peformer: sanitize(performer), genre: sanitize(genre), price: sanitize(price), day: sanitize(day), image: sanitize(image)  }, });
       res.json({ message: 'OK' });
     }
       catch(err) {
